@@ -171,6 +171,7 @@ trait DirMethods
      */
     public function checkDirAccepted(string $dir)
     {
+        if(substr($dir, 0, 1) == '/') return true;
         $base = rtrim(rtrim(Helper::basePath(''), "\\"), '/');
         if (count(explode($base, $dir)) == 2) return true;
         return false;
@@ -248,7 +249,7 @@ trait DirMethods
             $e = $b;
         }
         if (is_string($dir) && is_dir($dir)) {
-            // try {
+            try {
             if ($dh = opendir($dir)) {
                 while (($file = readdir($dh)) !== false) {
                     $t = 1;
@@ -358,9 +359,9 @@ trait DirMethods
                 }
                 closedir($dh);
             }
-            // } catch (\Exception $e) {
-            //     // $this->errors[__METHOD__] = $e->getMessage();
-            // }
+            } catch (\Exception $e) {
+                $this->errors[__METHOD__] = $e->getMessage();
+            }
         }
         if ($list && $abc) {
             if ($sort) {

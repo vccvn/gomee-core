@@ -34,7 +34,7 @@ class MyAdmin
 
     public $errorMessage = '';
 
-    protected $_chevked = false;
+    protected $_checked = false;
 
     protected $_isConnected = false;
 
@@ -80,8 +80,8 @@ class MyAdmin
     
     public function connect()
     {
-        if($this->_chevked) return $this->_isConnected;
-        $this->_chevked = true;
+        if($this->_checked) return $this->_isConnected;
+        $this->_checked = true;
         try {
             
             $this->db = new PDO("mysql:host=$this->host", $this->user, $this->pass);
